@@ -26,6 +26,9 @@ function startGame() {
         console.log("Key pressed", direction);
         if (direction == "right") moveRight(state);
         if (direction == "down") moveDown(state);
+        if (direction == "up") moveUp(state);
+        if (direction == "left") moveLeft(state);
+
         render(state);
     });
 }
@@ -64,6 +67,46 @@ function moveDown(state){
                 state[freeCell][j] = state[i][j];
                 state[i][j] = 0;
                 freeCell = i;
+
+                break;
+            }
+        }
+    }
+}
+
+function moveUp(state){
+    for (var j = 0; j<4; j++){
+        var freeCell = -1;
+        for (var i = 0; i<4; i++){
+            if (state[i][j] === 0){
+                if (i > freeCell)
+                freeCell = i;
+                
+            
+            } else if (freeCell !== -1){
+                state[freeCell][j] = state[i][j];
+                state[i][j] = 0;
+                freeCell = i;
+
+                break;
+            }
+        }
+    }
+}
+
+
+function moveLeft(state){
+    for (var i = 0; i<4; i++){
+        var freeCell = -1;
+        for (var j = 0; j<4; j++){
+            if (state[i][j] === 0){
+                if (j > freeCell)
+                freeCell = j;
+            
+            } else if (freeCell !== -1){
+                state[i][freeCell] = state[i][j];
+                state[i][j] = 0;
+                freeCell = j;
 
                 break;
             }
